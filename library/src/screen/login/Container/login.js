@@ -1,34 +1,50 @@
 import Login from "../component";
 import React, { Component } from "react";
+import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 class LoginContainer extends Component{
+    
     constructor(props){
         super(props);
         this.state={
-            data:{}
+            data:{},
+            loggedIn:false
         };
     }
     
     onChangeHandler = (event)=>{
-        debugger
-        let {data}= this.state;
+        let data= this.state.data;
         data[event.target.name]=event.target.value;
         this.setState({data});
+        console.log(data)
     }
 
     onSubmitHandler = (event)=>{
-        console.log("Hello"+this.state);
-        //alert(`${this.state.data.email} ${this.state.data.password}`);
         event.preventDefault();
+        axios.post('http://localhost:8080/user/login',this.state.data)
+        .then(response => {
+            console.log(response);
+            if(response.data.code==200){
+                this.setState({loggedIn:true})
+                localStorage.setItem("isAuth",true);
+                localStorage.setItem("id",response.data.data.id)
+            }
+        }).catch( error=>{
+            console.log(error);
+        })
     }
 
-    // componentDidUpdate=()=> {
-    //     console.log(this.state);
-    // }
-
+    
+    
     render(){
        
-        const {data}=this.state;
+        const {data,loggedIn}=this.state;
+        if(loggedIn){
+            return(
+                <Redirect to="/"/>
+                );
+        }
         return(
           <Login state={data} onChangeHandler={this.onChangeHandler} onSubmitHandler={this.onSubmitHandler}/>
         );

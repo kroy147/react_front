@@ -1,7 +1,6 @@
 import React from 'react';
 
-function TextBox({label,inputType,placeholder,id,name,value,onChangeHandler}){
-    debugger
+function TextBox({label,inputType,placeholder,id,name,value,onChangeHandler,required}){
     return (
 
         <div>
@@ -12,7 +11,8 @@ function TextBox({label,inputType,placeholder,id,name,value,onChangeHandler}){
                      name={name}
                      value={value}
                      placeholder={placeholder}
-                     onChange={onChangeHandler}/>
+                     onChange={onChangeHandler}
+                     required={required}/>
         </div>
 
     );

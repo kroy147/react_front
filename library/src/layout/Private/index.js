@@ -2,15 +2,16 @@
 import React from 'react';
 import { Route,Redirect } from 'react-router-dom';
 import Header from '../../shared/components/Header/header';
+import Navbar from '../../shared/components/NavBar/navbar';
 
-const PrivateRoute=({isAuth, component: Component, ... rest})=>{
-    
+const PrivateRoute=({component: Component, ... rest})=>{
+    let isAuth= localStorage.getItem("isAuth");
     return(
-       <Route {...rest} render= { (props) => true? (
+       <Route {...rest} render= { (props) => isAuth? (
            <div>
-               <Header isAuth="true"/>
+                <Header isAuth={isAuth}/> 
                <div className="container-main">
-                   <Component {...props}/>
+                   <Component  {...props}/>
                </div>
            </div>
 

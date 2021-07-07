@@ -10,12 +10,11 @@ const PublicRoute=({isAuth, component: Component, ... rest})=>{
     return(
        <Route {...rest} render= { (props) =>  (
            <div>
-               <Header/>
+                <Header/> 
                <div className="container-main">
                    <Component {...props} />
                </div>
-               <Navbar/>
-               <Footer/>
+               
 
            </div>
 
